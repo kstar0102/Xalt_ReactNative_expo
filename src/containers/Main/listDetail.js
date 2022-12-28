@@ -1,11 +1,13 @@
 import React, { useState, useCallback } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, TextInput, Modal, Button, ScrollView } from 'react-native';
 import Header from '../../components/Header/index';
-import {Calendar} from 'react-native-calendars';
+import { Calendar } from 'react-native-calendars';
+import Overlay from 'react-native-modal-overlay';
 
-function ListDetail({ route, navigation }) {   
+function ListDetail({ route, navigation }) {
+    const [isVisible, setisVisible] = useState(false);
     const [date, setDate] = useState("")
-    const [datecolor,setDateColor]=useState("")
+    const [datecolor, setDateColor] = useState("")
 
     const addZero = (a) => {
         if (a < 10 && a > 0) {
@@ -31,82 +33,98 @@ function ListDetail({ route, navigation }) {
         <ScrollView>
             <View style={{ flex: 1 }}>
                 <Header pressLogo={() => navigation.navigate('home')} />
-                <Text style = {styles.detailTitle}>Test 1 Challenge</Text>
+                <Text style={styles.detailTitle}>Test 1 Challenge</Text>
 
-                <View style = {styles.youtubeView}>
+                {/* <View style = {styles.youtubeView}>
 
-                </View>
+                </View> */}
 
-                <View style = {styles.detailView}>
-                    <Text style = {styles.t18}>Description</Text>
-                    <Text style = {styles.t15}>aaa</Text>
+                <View style={styles.detailView}>
+                    <Text style={styles.t18}>Description</Text>
+                    <Text style={styles.t15}>aaa</Text>
 
-                    <View style = {{flexDirection:'row'}}>
-                        <Text style = {styles.t16}>Participants:</Text>
-                        <Text style = {styles.t15}> 3</Text>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={styles.t16}>Participants:</Text>
+                        <Text style={styles.t15}> 3</Text>
                     </View>
 
-                    <View style = {{flexDirection:'row', width:'88%'}}>
-                        <Text style = {styles.t16}>Schedule:</Text>
-                        <Text style = {styles.t15}> Monday, Tuesday, Wedenesday Friday</Text>
+                    <View style={{ flexDirection: 'row', width: '88%' }}>
+                        <Text style={styles.t16}>Schedule:</Text>
+                        <Text style={styles.t15}> Monday, Tuesday, Wedenesday Friday</Text>
                     </View>
                 </View>
 
-                <View style = {{flexDirection: 'row', width: '88%', alignItems:'center', 
-                marginLeft:'6%', marginTop:10}}>
-                    <TouchableOpacity style={[styles.detailCalbutton, 
-                        {backgroundColor: '#fff', width:'60%'}]}>
-                        <Text style={[styles.t15, styles.textCenter, { fontWeight: '700' }]}>
+                <View style={{
+                    flexDirection: 'row', width: '88%', alignItems: 'center',
+                    marginLeft: '6%', marginTop: 10
+                }}>
+                    <TouchableOpacity style={[styles.detailCalbutton,
+                    { backgroundColor: '#fff', width: '55%' }]}>
+                        <Text style={[styles.t15, { fontWeight: '700' }]}>
                             testUser
                         </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.detailCalbutton, 
-                        {backgroundColor: '#fff', width:'40%'}]}>
-                        <Text style={[styles.t15, styles.textCenter, { fontWeight: '700' }]}>
-                            Select Otheruser
+                    <TouchableOpacity style={[styles.detailCalbutton,
+                    { backgroundColor: '#fff', width: '45%' }]}>
+                        <Text style={[styles.t15, { fontWeight: '700', color:'#E6447D'}]}>
+                            Select Different User
                         </Text>
-                    </TouchableOpacity>                                                             
+                    </TouchableOpacity>
                 </View>
 
                 <Calendar
                     markedDates={{
-                    [date]: { selected: true, marked: true, selectedColor: 'blue' },
+                        [date]: { selected: true, marked: true, selectedColor: 'blue' },
                     }}
                     current={getCurrentDate().toString()}
                     minDate={getMinDate().toString()}
                     maxData={'2050-01-01'}
                     monthFormat={'MMMM yyyy'}
                     onDayPress={(day) => {
-                    setDate(day.dateString);
-                    setDateColor('#000');
+                        setDate(day.dateString);
+                        setDateColor('#000');
                     }}
                     hideArrows={false}
                     hideExtraDays={true}
                     disableMonthChange={false}
                     firstDay={1}
                     theme={{
-                    todayTextColor: 'red',
+                        todayTextColor: 'red',
                     }}
-                    style = {{width: '88%', marginLeft:'6%'}}
+                    style={{ width: '88%', marginLeft: '6%' }}
                 />
 
-                <View style={{alignSelf: 'flex-start', marginLeft:'6%', marginTop:10}}>
-                    <TouchableOpacity style={styles.detailbutton}>
+                <View style={{ alignSelf: 'flex-start', marginLeft: '6%', marginTop: 10 }}>
+                    <TouchableOpacity style={styles.detailbutton} onPress={() => {
+                        setisVisible(true);
+                    }}>
                         <Text style={[styles.t14, { fontWeight: '400' }]}>
-                            Check In
+                            CHECK IN
                         </Text>
                     </TouchableOpacity>
                 </View>
 
-                <View style = {{flexDirection: 'row', width: '88%', alignItems:'center', 
-                marginLeft:'5%', marginTop:10}}>
+                <Overlay 
+                visible={isVisible} 
+                onClose={() => setisVisible(false)}
+                containerStyle={{backgroundColor: 'rgba(156, 156, 157, 0.68)'}}
+                closeOnTouchOutside>
+                    <Text>Some Modal Content</Text>
+                </Overlay>
+
+                <Text style={[styles.t18, {marginLeft: '6%', marginTop: 20}]}>Challenge Management</Text>
+
+                <View style={{
+                    flexDirection: 'row', width: '88%', alignItems: 'center',
+                    marginLeft: '5%', marginTop: 10
+                }}>
                     <TouchableOpacity style={styles.detailbutton1}>
-                        <Text style={[styles.t14, { fontWeight: '400'}]}>
-                            Approve Challenge
+                        <Text style={[styles.t14, { fontWeight: '400' }]}>
+                            Approve Check-ins
                         </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.detailbutton1, {marginHorizontal:5} ]}>
-                        <Text style={[styles.t14, { fontWeight: '400'}]}>
+                    <TouchableOpacity style={[styles.detailbutton1, { marginHorizontal: 5 }]}>
+                        <Text style={[styles.t14, { fontWeight: '400' }]}>
                             Edit Challenge
                         </Text>
                     </TouchableOpacity>
@@ -117,7 +135,7 @@ function ListDetail({ route, navigation }) {
                     </TouchableOpacity>
                 </View>
 
-                <View style={{alignSelf: 'flex-start', marginLeft:'6%', marginTop:10}}>
+                <View style={{ alignSelf: 'center', marginLeft: '6%', marginTop: 10 }}>
                     <TouchableOpacity style={styles.detailbutton}>
                         <Text style={[styles.t14, { fontWeight: '400' }]}>
                             Leave Challenge
@@ -125,8 +143,8 @@ function ListDetail({ route, navigation }) {
                     </TouchableOpacity>
                 </View>
 
-                <View style={{alignSelf: 'flex-end', marginRight:'6%', marginTop:10, marginBottom:30}}>
-                    <TouchableOpacity style={styles.signButton} onPress = {() => navigation.navigate('main')}>
+                <View style={{ alignSelf: 'flex-end', marginRight: '6%', marginTop: 10, marginBottom: 30 }}>
+                    <TouchableOpacity style={styles.signButton} onPress={() => navigation.navigate('main')}>
                         <Text style={[styles.t16, { fontWeight: '400', color: '#fff' }]}>
                             Close
                         </Text>
@@ -135,29 +153,41 @@ function ListDetail({ route, navigation }) {
 
             </View>
         </ScrollView>
-        
+
     )
 }
 
 const styles = StyleSheet.create({
-    youtubeView:{
-        width:'88%',
-        height:280,
+    youtubeView: {
+        width: '88%',
+        height: 280,
         backgroundColor: "#474747",
-        alignSelf:'center'
+        alignSelf: 'center'
     },
-    detailView:{
+    modal: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: "#fff",
+        height: '50%',
+        width: '80%',
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#fff',
+        marginTop: 80,
+        marginLeft: 40,
+    },
+    detailView: {
         paddingVertical: 5,
         paddingHorizontal: 10,
         borderRadius: 10,
         borderWidth: 1.5,
         borderColor: '#E6447D',
         backgroundColor: '#FEF9FB',
-        width:'88%',
-        alignSelf:'center',
+        width: '88%',
+        alignSelf: 'center',
         marginTop: 20
     },
-    detailTitle:{
+    detailTitle: {
         color: '#E6447D',
         fontSize: 21,
         fontWeight: '500',

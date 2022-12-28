@@ -11,10 +11,10 @@ import Checkbox from 'expo-checkbox';
 function MainScreen({ navigation }) {
     const [isVisible, setisVisible] = useState(false);
     const [bgColor, setBGColor] = useState([
-        {top: '#'},
-        {own: '#'},
-        {enroll: '#'},
-        {search: '#'}
+        { top: '#' },
+        { own: '#' },
+        { enroll: '#' },
+        { search: '#' }
     ]);
     const [mon, setMon] = useState(false);
     const [tue, seTtue] = useState(false);
@@ -22,7 +22,7 @@ function MainScreen({ navigation }) {
     const [thu, setThu] = useState(false);
     const [fri, setFri] = useState(false);
 
-    
+
     const [date, setDate] = useState('');
     const [lastDate, setLastDate] = useState('');
     const [startDate, setStartDate] = useState(true);
@@ -35,14 +35,14 @@ function MainScreen({ navigation }) {
         console.log("lastdate: " + lastDate);
         setDatePickerVisibility(true);
     };
-    
+
     const hideDatePicker = () => {
-    setDatePickerVisibility(false);
+        setDatePickerVisibility(false);
     };
 
     const handleConfirm = (date) => {
-    startDate ? setDate(date) : setLastDate(date);    
-    hideDatePicker();
+        startDate ? setDate(date) : setLastDate(date);
+        hideDatePicker();
     };
 
     const getDate = () => {
@@ -84,12 +84,12 @@ function MainScreen({ navigation }) {
             <Header pressLogo={() => navigation.navigate('home')} />
             <View style={styles.mainContent}>
                 <View style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity style={[styles.Topbutton, {backgroundColor: bgColor.top}]} onPress={() => {
+                    <TouchableOpacity style={[styles.Topbutton, { backgroundColor: bgColor.top }]} onPress={() => {
                         setBGColor(
-                            {top: '#999999'},
-                            {own: '#'},
-                            {enroll: '#'},
-                            {search: '#'}
+                            { top: '#999999' },
+                            { own: '#' },
+                            { enroll: '#' },
+                            { search: '#' }
                         );
                         // navigation.navigate('main')
                     }}>
@@ -97,39 +97,39 @@ function MainScreen({ navigation }) {
                             TOP
                         </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.Topbutton, {backgroundColor: bgColor.own}]} onPress={() => {
+                    <TouchableOpacity style={[styles.Topbutton, { backgroundColor: bgColor.own }]} onPress={() => {
                         setBGColor(
-                            {own: '#999999'},
-                            {top: '#'},
-                            {enroll: '#'},
-                            {search: '#'}
+                            { own: '#999999' },
+                            { top: '#' },
+                            { enroll: '#' },
+                            { search: '#' }
                         );
                         // navigation.navigate('main')
                     }
-                        }>
-                        <Text style={[styles.t15, styles.textCenter,  { fontWeight: '700' }]}>
+                    }>
+                        <Text style={[styles.t15, styles.textCenter, { fontWeight: '700' }]}>
                             OWNED BY YOU
                         </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.Topbutton, {backgroundColor: bgColor.enroll}]} onPress={() => {
+                    <TouchableOpacity style={[styles.Topbutton, { backgroundColor: bgColor.enroll }]} onPress={() => {
                         setBGColor(
-                            {enroll: '#999999'},
-                            {top: '#'},
-                            {own: '#'},
-                            {search: '#'}
+                            { enroll: '#999999' },
+                            { top: '#' },
+                            { own: '#' },
+                            { search: '#' }
                         );
                         // navigation.navigate('main')
                     }}>
-                        <Text style={[styles.t15, styles.textCenter,  { fontWeight: '700' }]}>
+                        <Text style={[styles.t15, styles.textCenter, { fontWeight: '700' }]}>
                             ENROLLED
                         </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.Topbutton, {backgroundColor: bgColor.search}]} onPress={() => {
+                    <TouchableOpacity style={[styles.Topbutton, { backgroundColor: bgColor.search }]} onPress={() => {
                         setBGColor(
-                            {search: '#999999'},
-                            {top: '#'},
-                            {own: '#'},
-                            {enroll: '#'},
+                            { search: '#999999' },
+                            { top: '#' },
+                            { own: '#' },
+                            { enroll: '#' },
                         );
                         // navigation.navigate('main')
                     }}>
@@ -152,9 +152,14 @@ function MainScreen({ navigation }) {
 
                 <Modal
                     animationType={"slide"}
-                    transparent={false}
+                    onRequestClose={() => {
+                        console.log("Modal has been closed.");
+                        setisVisible(false);
+                    }}
+                    style = {{backgroundColor: '#fff'}}
+                    transparent={true}
                     visible={isVisible}>
-                    <ScrollView>
+                    <ScrollView >
                         <View style={styles.modalcontain}>
                             <Text style={styles.modalHeader}>New Challenge</Text>
                             <View style={{ width: '88%', marginTop: 10 }}>
@@ -201,42 +206,42 @@ function MainScreen({ navigation }) {
                                 onCancel={hideDatePicker}
                             />
 
-                            <View style = {{flexDirection:'row'}}>
+                            <View style={{ flexDirection: 'row' }}>
                                 <View style={{ width: '42%', marginTop: 10 }}>
-                                    <TextInput placeholder="Start date" value={getDate()} 
-                                    style={[styles.dateInput]} onFocus = {() => showDatePicker(true)}/>
+                                    <TextInput placeholder="Start date" value={getDate()}
+                                        style={[styles.dateInput]} onFocus={() => showDatePicker(true)} />
                                 </View>
-                                <Text style = {{width:'4%'}} />
+                                <Text style={{ width: '4%' }} />
                                 <View style={{ width: '42%', marginTop: 10 }}>
-                                    <TextInput placeholder="End date" style={[styles.dateInput]} 
-                                    onFocus = {() => showDatePicker(false)} value = {getLastDate()}/>
+                                    <TextInput placeholder="End date" style={[styles.dateInput]}
+                                        onFocus={() => showDatePicker(false)} value={getLastDate()} />
                                 </View>
                             </View>
 
-                            <Text style = {styles.scheduletile}>Schedule</Text>
+                            <Text style={styles.scheduletile}>Schedule</Text>
 
-                            <View style = {{flexDirection:'row', width:'88%', marginTop:10}}>
-                                <TouchableOpacity onPress={() => setMon(!mon)} style={[styles.schedulebutton, mon ? {backgroundColor:  '#E6447D'}  : '']}>
+                            <View style={{ flexDirection: 'row', width: '88%', marginTop: 10 }}>
+                                <TouchableOpacity onPress={() => setMon(!mon)} style={[styles.schedulebutton, mon ? { backgroundColor: '#E6447D' } : '']}>
                                     <Text style={[styles.t15, styles.textCenter, { fontWeight: '700' }]}>
                                         MON
                                     </Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => seTtue(!tue)} style={[styles.schedulebutton,tue ? {backgroundColor:  '#E6447D'}  : '']}>
+                                <TouchableOpacity onPress={() => seTtue(!tue)} style={[styles.schedulebutton, tue ? { backgroundColor: '#E6447D' } : '']}>
                                     <Text style={[styles.t15, styles.textCenter, { fontWeight: '700' }]}>
                                         TUES
                                     </Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => setWed(!wed)} style={[styles.schedulebutton, wed ? {backgroundColor:  '#E6447D'}  : '']}>
+                                <TouchableOpacity onPress={() => setWed(!wed)} style={[styles.schedulebutton, wed ? { backgroundColor: '#E6447D' } : '']}>
                                     <Text style={[styles.t15, styles.textCenter, { fontWeight: '700' }]}>
                                         WED
                                     </Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => setThu(!thu)} style={[styles.schedulebutton, thu ? {backgroundColor:  '#E6447D'}  : '']}>
+                                <TouchableOpacity onPress={() => setThu(!thu)} style={[styles.schedulebutton, thu ? { backgroundColor: '#E6447D' } : '']}>
                                     <Text style={[styles.t15, styles.textCenter, { fontWeight: '700' }]}>
                                         THUR
                                     </Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => setFri(!fri)} style={[styles.schedulebutton, fri ? {backgroundColor:  '#E6447D'}  : '']}>
+                                <TouchableOpacity onPress={() => setFri(!fri)} style={[styles.schedulebutton, fri ? { backgroundColor: '#E6447D' } : '']}>
                                     <Text style={[styles.t15, styles.textCenter, { fontWeight: '700' }]}>
                                         FRI
                                     </Text>
@@ -247,25 +252,25 @@ function MainScreen({ navigation }) {
                                 <TextInput placeholder="Copy/paste link of Challenge" style={[styles.loginInput]} />
                             </View>
 
-                            <View style = {{flexDirection:'row', width:'88%', marginTop:20}}>
-                                <Checkbox value={isAccept} color="#E6447D" 
-                                onValueChange={checkAccept} style={{marginTop:2}}/>
-                                <Text style = {styles.checkboxtile}>I confirm that the video being submitted:</Text>
+                            <View style={{ flexDirection: 'row', width: '88%', marginTop: 20 }}>
+                                <Checkbox value={isAccept} color="#E6447D"
+                                    onValueChange={checkAccept} style={{ marginTop: 2 }} />
+                                <Text style={styles.checkboxtile}>I confirm that the video being submitted:</Text>
                             </View>
 
-                            <Text style = {styles.checkboxdes}>- Uses appropriate anatomical language</Text>
-                            <Text style = {styles.checkboxdes1}> and has no profanity</Text>
+                            <Text style={styles.checkboxdes}>- Uses appropriate anatomical language</Text>
+                            <Text style={styles.checkboxdes1}> and has no profanity</Text>
 
-                            <Text style = {styles.checkboxdes}>- Has no persons wearing revealing/</Text>
-                            <Text style = {styles.checkboxdes1}> inappropriate clothing</Text>
+                            <Text style={styles.checkboxdes}>- Has no persons wearing revealing/</Text>
+                            <Text style={styles.checkboxdes1}> inappropriate clothing</Text>
 
-                            <Text style = {styles.checkboxdes}>- Has good lighting and camera set-up,</Text>
-                            <Text style = {styles.checkboxdes1}> and clear quality</Text>
+                            <Text style={styles.checkboxdes}>- Has good lighting and camera set-up,</Text>
+                            <Text style={styles.checkboxdes1}> and clear quality</Text>
 
-                            <Text style = {styles.checkboxdes}>- Is between 30-90 seconds</Text>
+                            <Text style={styles.checkboxdes}>- Is between 30-90 seconds</Text>
 
-                            <View style={{ flexDirection: 'row', marginTop:20, marginBottom:30}}>
-                                <View style={{ alignSelf: 'flex-start',}}>
+                            <View style={{ flexDirection: 'row', marginTop: 20, marginBottom: 30 }}>
+                                <View style={{ alignSelf: 'flex-start', }}>
                                     <TouchableOpacity style={styles.signButton} onPress={() =>
                                         navigation.navigate('step1')}>
                                         <Text style={[styles.t15, styles.colorWhite, { fontWeight: '700' }]}>
@@ -273,8 +278,8 @@ function MainScreen({ navigation }) {
                                         </Text>
                                     </TouchableOpacity>
                                 </View>
-                                <Text style = {{width: "20%"}}/>
-                                <View style={{alignSelf: 'flex-end',  }}>
+                                <Text style={{ width: "20%" }} />
+                                <View style={{ alignSelf: 'flex-end', }}>
                                     <TouchableOpacity style={styles.signButton} onPress={() => {
                                         setisVisible(false);
                                     }}>
@@ -287,7 +292,7 @@ function MainScreen({ navigation }) {
 
                         </View>
                     </ScrollView>
-                    
+
 
                 </Modal>
             </View>
@@ -316,8 +321,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     schedulebutton: {
-        width:'20%',
-        alignItems:'center',
+        width: '20%',
+        alignItems: 'center',
         paddingVertical: 10,
         borderWidth: 1,
         borderColor: '#000',
@@ -375,7 +380,7 @@ const styles = StyleSheet.create({
         color: '#505d68',
         alignSelf: 'flex-start',
         marginLeft: '6%',
-        marginTop:20
+        marginTop: 20
     },
 
     checkboxtile: {
@@ -389,8 +394,8 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         fontSize: 16,
         alignSelf: 'flex-start',
-        width:'88%',
-        color:'#505d68',
+        width: '88%',
+        color: '#505d68',
         marginLeft: '12%',
         marginTop: 10
     },
@@ -399,8 +404,8 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         fontSize: 16,
         alignSelf: 'flex-start',
-        width:'88%',
-        color:'#505d68',
+        width: '88%',
+        color: '#505d68',
         marginLeft: '12%',
     },
 
