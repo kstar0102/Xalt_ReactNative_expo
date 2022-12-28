@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, ScrollView, TouchableOpacity } from 'react-native';
 import Header from '../../components/Header/index';
+import Footer from '../../components/Footer/index';
+
 import Card from '../../components/Card';
 
 function Step4Screen({ navigation }) {
     return(
-        <ScrollView>
             <View style={{ flex: 1 }}>
                 <Header pressLogo={() => navigation.navigate('home')} />
+                <Text style={{width: '40%', height: 10, backgroundColor: '#E6447D'}} />
                 <View style={styles.step4Content}>
                     <Text style={styles.t20bold}>What are your health and fitness</Text>
                     <Text style={styles.t20bold}>goals? Select up to 3 goals.</Text>
@@ -23,28 +25,13 @@ function Step4Screen({ navigation }) {
                         <Text style={styles.sectionTitle}>Basic CardView Example</Text>
                     </Card>
 
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={{ paddingTop: 130, alignSelf: 'flex-start',}}>
-                            <TouchableOpacity style={styles.previousButton} onPress={() =>
-                                navigation.navigate('step3')}>
-                                <Text style={[styles.t15, styles.colorPink, { fontWeight: '700' }]}>
-                                    PREVIOUS
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                        <Text style = {{width: "20%"}}/>
-                        <View style={{ paddingTop: 130, alignSelf: 'flex-end',  }}>
-                            <TouchableOpacity style={styles.signButton} onPress={() =>
-                                navigation.navigate('step5')}>
-                                <Text style={[styles.t15, styles.colorWhite, { fontWeight: '700' }]}>
-                                    NEXT
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
+                    
                 </View>
+                <Footer navigationNext={() =>
+                                navigation.navigate('step5')} 
+                                navgationPrevious={() =>
+                                navigation.navigate('step3')}/>
             </View>
-        </ScrollView>
     );
 }
 

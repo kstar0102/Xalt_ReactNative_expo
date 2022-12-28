@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
 import Header from '../../components/Header/index';
+import Footer from '../../components/Footer/index';
+
 import Slider from '@react-native-community/slider';
 
 function Step8Screen({ navigation }) {
     const [sliderValue, setSliderValue] = useState(1);
 
     return (
-        <ScrollView>
             <View style={{ flex: 1 }}>
                 <Header pressLogo={() => navigation.navigate('home')} />
+                <Text style={{width: '80%', height: 10, backgroundColor: '#E6447D'}} />
                 <View style={styles.step1Content}>
 
                     <Text style={styles.t20bold}>What level of intensity do you expect</Text>
@@ -39,29 +41,14 @@ function Step8Screen({ navigation }) {
                         </Text>
                     </TouchableOpacity>
 
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={{ paddingTop: 130, alignSelf: 'flex-start',}}>
-                            <TouchableOpacity style={styles.previousButton} onPress={() =>
-                                navigation.navigate('step7')}>
-                                <Text style={[styles.t15, styles.colorPink, { fontWeight: '700' }]}>
-                                    PREVIOUS
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                        <Text style = {{width: "20%"}}/>
-                        <View style={{ paddingTop: 130, alignSelf: 'flex-end',  }}>
-                            <TouchableOpacity style={styles.signButton} onPress={() =>
-                                navigation.navigate('step11')}>
-                                <Text style={[styles.t15, styles.colorWhite, { fontWeight: '700' }]}>
-                                    NEXT
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
+                    
 
                 </View>
+                <Footer navigationNext={() =>
+                                navigation.navigate('step11')} 
+                                navgationPrevious={() =>
+                                navigation.navigate('step7')}/>
             </View>
-        </ScrollView>
     );
 }
 

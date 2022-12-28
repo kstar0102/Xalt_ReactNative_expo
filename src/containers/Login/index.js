@@ -53,7 +53,7 @@ function LoginScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  loginInput: {
+    loginInput: {
     width: '100%',
     paddingHorizontal: 20,
     paddingVertical: 10,
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     fontSize: 16,
-  },
+    },
   loginContent: {
     display: 'flex',
     justifyContent: 'center',

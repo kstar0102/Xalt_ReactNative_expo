@@ -24,6 +24,7 @@ class List extends Component {
          },
       ]
    }
+   
    alertItemName = (item) => {
       alert(item.title)
    }
@@ -34,15 +35,12 @@ class List extends Component {
                this.state.names.map((item, index) => (
                   <TouchableOpacity
                      key = {item.id}
-                     onPress = {() => this.alertItemName(item)}>
+                     onPress = {this.props.navigationFunc}>
                     <View style = {{flexDirection:'row'}}>
-                        <View style = {{alignSelf:'flex-start'}}>
+                        <View style = {{alignSelf:'flex-start', width:'60%'}}>
                             <Text style = {styles.text}>{item.title}</Text>
                             <Text style = {styles.text}>{item.username}</Text>
-                        </View>
-                        
-                        <Text style= {{width : '40%'}} />
-
+                        </View>                        
                         <Text style = {styles.text}>PARTICIPANTS: {' '}</Text>
                         <Text style = {styles.text}>{item.users}</Text>
                         

@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import Header from '../../components/Header/index';
 import { FontAwesome } from '@expo/vector-icons';
+import Checkbox from 'expo-checkbox';
 
 function SignUpScreen({ navigation }) {
+    const [isShown, setIsShown] = useState(true);
+    const [isAccept, setIsAccept] = useState(false);
+
+    const checkAccept = () => {
+        setIsAccept((isAccept) => !isAccept);
+    }
+
+    const togglePassword = () => {
+        setIsShown((isShown) => !isShown);
+    }
     return (
         <ScrollView>
             <View style={{ flex: 1 }}>
@@ -18,13 +29,15 @@ function SignUpScreen({ navigation }) {
                         <TextInput placeholder="Email" style={[styles.signUpInput]} />
                     </View>
                     <View style={{ width: '88%', marginTop: 20, display: 'flex', flexDirection: 'row' }}>
-                        <TextInput placeholder="Password" style={[styles.signUpInput]} />
-                        <TouchableOpacity style={{ position: 'absolute', right: 10, top: 10 }}>
+                        <TextInput placeholder="Password" style={[styles.signUpInput]} secureTextEntry={isShown}/>
+                        <TouchableOpacity style={{ position: 'absolute', right: 10, top: 10 }} onPress={togglePassword}>
                             <FontAwesome name="eye-slash" size={24} color="#999999" />
                         </TouchableOpacity>
                     </View>
 
                     <View style={{ paddingTop: 50, width: '88%', display: 'flex', flexWrap: "wrap", flexDirection: 'row' }}>
+                        <Checkbox value={isAccept} color="#ff0000" onValueChange={checkAccept} style={styles.checkBox}
+                        />
                         <Text style={[styles.t15, styles.textCenter, { fontWeight: '300' }]}>
                             I confirm that I have read and agree to the {' '}
                         </Text>
@@ -37,6 +50,14 @@ function SignUpScreen({ navigation }) {
                             <Text style={[styles.t15, styles.textCenter, styles.colorPink, { fontWeight: '300' }]}>
                                 Privacy Statement.</Text>
                         </TouchableOpacity>
+
+                        { !isAccept ? 
+                            (
+                                <Text style={[styles.t15, styles.textCenter, styles.marginTop, { fontWeight: '300', color: '#ff0000'} ]}>
+                                    Please, accept Terms and Conditions and Privacy statement
+                                </Text>  
+                            ) : null
+                        }
                     </View>
 
                     <View style={{ paddingTop: 30 }}>
@@ -62,7 +83,6 @@ function SignUpScreen({ navigation }) {
         </ScrollView>
     );
 }
-
 const styles = StyleSheet.create({
     signUpContent: {
         display: 'flex',
@@ -89,6 +109,9 @@ const styles = StyleSheet.create({
         borderColor: '#E6447D',
         backgroundColor: '#E6447D'
     },
+    checkBox: {
+        marginRight: 7,
+    },
     textCenter: {
         textAlign: 'center'
     },
@@ -97,6 +120,12 @@ const styles = StyleSheet.create({
     },
     colorWhite: {
         color: '#fff'
+    },
+    colorRed: {
+        color: '#ff0000'
+    },
+    marginTop: {
+        marginTop: 10
     },
     t35: {
         fontWeight: '700',

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, ScrollView, TouchableOpacity } from 'react-native';
 import Header from '../../components/Header/index';
+import Footer from '../../components/Footer/index';
 import CheckBox from 'expo-checkbox';
 
 const initialState = {
@@ -15,9 +16,9 @@ function Step3Screen({ navigation }) {
     const [state, setState] = React.useState(initialState);
 
     return (
-        <ScrollView>
             <View style={{ flex: 1 }}>
                 <Header pressLogo={() => navigation.navigate('home')} />
+                <Text style={{width: '30%', height: 10, backgroundColor: '#E6447D'}} />
                 <View style={styles.headercontain}>
                     <Text style={styles.t20bold}>Where do you typically exercise?</Text>
                     <Text style={styles.t20bold}>Choose all that apply.</Text>
@@ -84,7 +85,7 @@ function Step3Screen({ navigation }) {
                     <Text style={styles.t18}>I don't exercise at the moment</Text>
                 </View>
 
-                <View style={{ flexDirection: 'row', justifyContent:'center', marginTop:'85%' }}>
+                {/* <View style={{ flexDirection: 'row', justifyContent:'center', marginTop:'85%' }}>
                         <View style={{  alignSelf: 'flex-start',}}>
                             <TouchableOpacity style={styles.previousButton} onPress={() =>
                                 navigation.navigate('step2')}>
@@ -102,11 +103,14 @@ function Step3Screen({ navigation }) {
                                 </Text>
                             </TouchableOpacity>
                         </View>
-                    </View>
+                    </View> */}
+                    <Footer navigationNext={() =>
+                                navigation.navigate('step4')} 
+                                navgationPrevious={() =>
+                                navigation.navigate('step2')}/>
 
 
             </View>
-        </ScrollView>
     );
 
 }

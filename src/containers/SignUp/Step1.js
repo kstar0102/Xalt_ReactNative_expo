@@ -7,10 +7,10 @@ function Step1Screen({ navigation }) {
     const [sliderValue, setSliderValue] = useState(1);
 
     return (
-        <ScrollView>
-            <SafeAreaView style={{ flex: 1 }}>
-                <View style={styles.step1Content}>
-                    <Header pressLogo={() => navigation.navigate('home')} />
+            <View style={{ flex: 1 }}>
+                <Header pressLogo={() => navigation.navigate('home')} />
+                <Text style={{width: '10%', height: 10, backgroundColor: '#E6447D'}} />
+                <View style={styles.step1Content} >
                     <Text style={styles.t20bold}>How many days did you</Text>
                     <Text style={styles.t20bold}>exercise/move last week?</Text>
 
@@ -24,7 +24,7 @@ function Step1Screen({ navigation }) {
                     <View style={styles.rangeView}>
                         <Text style={[styles.t18, styles.textCenter,
                         { fontWeight: '300', marginTop: 30 }]}>1 day</Text>
-                        <Text style={{ width: '60%' }} />
+                        <Text style={{ width: '60%',}} />
                         <Text style={[styles.t18, styles.textCenter, { fontWeight: '300', marginTop: 30 }]}>7 days</Text>
                     </View>
 
@@ -45,7 +45,7 @@ function Step1Screen({ navigation }) {
                         </Text>
                     </TouchableOpacity>
 
-                    <View style={{alignSelf: 'flex-end', marginTop:'90%', marginRight: '10%',   bottom:0 }}>
+                    <View style={{alignSelf: 'flex-end', marginTop:'90%', marginRight: '10%',   bottom:50,}}>
                         <TouchableOpacity style={styles.signButton} onPress={() =>
                             navigation.navigate('step2')}>
                             <Text style={[styles.t15, styles.colorWhite, { fontWeight: '700' }]}>
@@ -54,8 +54,7 @@ function Step1Screen({ navigation }) {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </SafeAreaView>
-        </ScrollView>
+            </View>
     );
 }
 
@@ -106,6 +105,18 @@ const styles = StyleSheet.create({
     colorWhite: {
         color: '#fff'
     },
+    thumb: {
+        width: 50,
+        height: 80,
+        borderBottomRightRadius: 100,
+        borderTopRightRadius: 100,
+
+    },
+    track:{
+        height: 80,
+        borderBottomRightRadius: 20,
+        borderTopRightRadius: 20,
+    }
 });
 
 export default Step1Screen;

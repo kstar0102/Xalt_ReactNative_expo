@@ -4,16 +4,18 @@ import Header from '../../components/Header/index';
 
 function Step5Screen({ navigation }) {
     return (
-        <ScrollView>
             <View style={{ flex: 1 }}>
                 <Header pressLogo={() => navigation.navigate('home')} />
+                <Text style={{width: '100%', height: 10, backgroundColor: '#E6447D'}} />
                 <View style={styles.step5Content}>
                     <Text style={styles.t20bold}>Thank you for taking onboarding</Text>
                     <Text style={styles.t20bold}>step!</Text>
                     <Text style={[styles.t18, styles.textCenter, { fontWeight: '300', marginTop: 20 }]}>
                         Click next to head to your dashboard!</Text>
 
-                    <View style={{ flexDirection: 'row' }}>
+                    
+                </View>
+                <View style={{ flexDirection: 'row', bottom:10, right:20, position:'absolute' }}>
                         <View style={{ paddingTop: 130}}>
                             <TouchableOpacity style={styles.signButton} onPress={() =>
                                 navigation.navigate('main')}>
@@ -22,10 +24,8 @@ function Step5Screen({ navigation }) {
                                 </Text>
                             </TouchableOpacity>
                         </View>
-                    </View>
                 </View>
             </View>
-        </ScrollView>
     );
 }
 

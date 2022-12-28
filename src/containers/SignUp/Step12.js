@@ -4,9 +4,9 @@ import Header from '../../components/Header/index';
 
 function Step12Screen({ navigation }) {
     return (
-        <ScrollView>
             <View style={{ flex: 1 }}>
                 <Header pressLogo={() => navigation.navigate('home')} />
+                <Text style={{width: '95%', height: 10, backgroundColor: '#E6447D'}} />
                 <View style={styles.step5Content}>
                     <Text style={styles.t20bold}>Payments</Text>
 
@@ -40,7 +40,7 @@ function Step12Screen({ navigation }) {
                         </TouchableOpacity>
                     </View>
 
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{ flexDirection: 'row'}}>
                         <View style={{ paddingTop: 150, alignSelf: 'flex-start', }}>
                             <TouchableOpacity style={styles.previousButton} onPress={() =>
                                 navigation.navigate('step11')}>
@@ -61,7 +61,6 @@ function Step12Screen({ navigation }) {
                     </View>
                 </View>
             </View>
-        </ScrollView>
     );
 }
 

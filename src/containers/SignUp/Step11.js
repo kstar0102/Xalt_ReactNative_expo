@@ -4,9 +4,9 @@ import Header from '../../components/Header/index';
 
 function Step11Screen({ navigation }) {
     return (
-        <ScrollView>
             <View style={{ flex: 1 }}>
                 <Header pressLogo={() => navigation.navigate('home')} />
+                <Text style={{width: '90%', height: 10, backgroundColor: '#E6447D'}} />
                 <View style={styles.step5Content}>
                     <Text style={styles.t20bold}>Get started with a Coach!</Text>
                     <Text style={[styles.t18, styles.textCenter, { fontWeight: '300', marginTop: 20 }]}>
@@ -16,36 +16,35 @@ function Step11Screen({ navigation }) {
                     <Text style={[styles.t18, styles.textCenter, { fontWeight: '300'}]}>
                         and fitness journey!</Text>
 
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={{ paddingTop: 200, alignSelf: 'flex-start', }}>
-                            <TouchableOpacity style={styles.previousButton} onPress={() =>
-                                navigation.navigate('step8')}>
-                                <Text style={[styles.t15, styles.colorPink, { fontWeight: '700' }]}>
-                                    PREVIOUS
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                        <Text style={{ width: "10%" }} />
-                        <View style={{ paddingTop: 130, alignSelf: 'flex-end', }}>
-                            <TouchableOpacity style={styles.signButton} onPress={() =>
-                                navigation.navigate('step12')}>
-                                <Text style={[styles.t15, styles.colorWhite, { fontWeight: '700' }]}>
-                                    NEXT
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{ paddingTop: 200, alignSelf: 'flex-end', marginLeft:10}}>
-                            <TouchableOpacity style={styles.previousButton} onPress={() =>
-                                navigation.navigate('step12')}>
-                                <Text style={[styles.t15, styles.colorPink, { fontWeight: '700' }]}>
-                                    SKIP
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
+                </View>
+                <View style={[ { flexDirection: 'row', justifyContent:'center', position: 'absolute', bottom: 10, left: 10}]}>
+                    <View style={{ paddingTop: 200, alignSelf: 'flex-start', }}>
+                        <TouchableOpacity style={styles.previousButton} onPress={() =>
+                            navigation.navigate('step8')}>
+                            <Text style={[styles.t15, styles.colorPink, { fontWeight: '700' }]}>
+                                PREVIOUS
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                    <Text style={{ width: "10%" }} />
+                    <View style={{ paddingTop: 130, alignSelf: 'flex-end', }}>
+                        <TouchableOpacity style={styles.signButton} onPress={() =>
+                            navigation.navigate('step12')}>
+                            <Text style={[styles.t15, styles.colorWhite, { fontWeight: '700' }]}>
+                                NEXT
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ paddingTop: 200, alignSelf: 'flex-end', marginLeft:10}}>
+                        <TouchableOpacity style={styles.previousButton} onPress={() =>
+                            navigation.navigate('step12')}>
+                            <Text style={[styles.t15, styles.colorPink, { fontWeight: '700' }]}>
+                                SKIP
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
-        </ScrollView>
     );
 }
 
@@ -98,6 +97,14 @@ const styles = StyleSheet.create({
     },
     colorWhite: {
         color: '#fff'
+    },
+    bottomView: {
+        width: '100%',
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute', //Here is the trick
+        bottom: 10, //Here is the trick
     },
 });
 
