@@ -1,13 +1,42 @@
-import React, { useState, useCallback } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, TextInput, Modal, Button, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, Text, TouchableOpacity, TextInput, Alert, ScrollView } from 'react-native';
 import Header from '../../components/Header/index';
 import { Calendar } from 'react-native-calendars';
 import Overlay from 'react-native-modal-overlay';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 function ListDetail({ route, navigation }) {
     const [isVisible, setisVisible] = useState(false);
     const [date, setDate] = useState("")
     const [datecolor, setDateColor] = useState("")
+
+    const [lastDate, setLastDate] = useState('');
+    const [startDate, setStartDate] = useState(true);
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+    const showDatePicker = (flag) => {
+        flag ? setStartDate(true) : setStartDate(false);
+        console.log("startdate:" + startDate);
+        console.log("date: " + date);
+        console.log("lastdate: " + lastDate);
+        setDatePickerVisibility(true);
+    };
+
+    const hideDatePicker = () => {
+        setDatePickerVisibility(false);
+    };
+
+    const handleConfirm = (date) => {
+        startDate ? setDate(date) : setLastDate(date);
+        hideDatePicker();
+    };
+
+    const getDate = () => {
+        let tempDate = date.toString().split(' ');
+        return date !== ''
+            ? `${tempDate[0]} ${tempDate[1]} ${tempDate[2]} ${tempDate[3]}`
+            : '';
+    };
 
     const addZero = (a) => {
         if (a < 10 && a > 0) {
@@ -29,6 +58,21 @@ function ListDetail({ route, navigation }) {
         var year = new Date().getFullYear();
         return year + '-' + addZero(month) + '-' + addZero(date);//yyyy-mm-dd
     }
+
+    const createAlert = () =>
+    Alert.alert(
+      "Alert",
+      "Do you want to enroll in this challenge?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ]
+    );
+
     return (
         <ScrollView>
             <View style={{ flex: 1 }}>
@@ -109,8 +153,51 @@ function ListDetail({ route, navigation }) {
                 onClose={() => setisVisible(false)}
                 containerStyle={{backgroundColor: 'rgba(156, 156, 157, 0.68)'}}
                 closeOnTouchOutside>
-                    <Text>Some Modal Content</Text>
+                    <View style = {{alignItems: "flex-start", width:'100%'}}>
+                        <Text style = {styles.modalTitle}>CheckIn</Text>
+
+                        <View style={{ width: '60%', marginTop: 10 }}>
+                            <TextInput placeholder="Start date" value={getDate()}
+                                style={[styles.dateInput]} onFocus={() => showDatePicker(true)} />
+                        </View>
+
+                        <View style={{ width: '100%', marginTop: 10 }}>
+                            <TextInput multiline={true} numberOfLines={4}
+                                placeholder="What did you do today?" style={[styles.loginInput]} />
+                        </View>
+
+                        <View style={{ width: '100%', marginTop: 10 }}>
+                            <TextInput placeholder="Link ot proof(optional)" style={[styles.loginInput]} />
+                        </View>
+
+                        <View style = {{flexDirection:'row', marginTop:15}}>
+                            <View style={{ alignSelf: 'flex-end',  }}>
+                                <TouchableOpacity style={styles.signButton}>
+                                    <Text style={[styles.t15, styles.colorWhite, { fontWeight: '700', color:'#fff' }]}>
+                                        SUBMIT
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                            <Text style = {{width: "10%"}}/>
+                            <View style={{  alignSelf: 'flex-start',}}>
+                                <TouchableOpacity style={styles.closeButton} 
+                                onPress = {() => setisVisible(false)}>
+                                    <Text style={[styles.t15, { fontWeight: '700' }]}>
+                                        CLOSE
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                    
                 </Overlay>
+
+                <DateTimePickerModal
+                    isVisible={isDatePickerVisible}
+                    mode="date"
+                    onConfirm={handleConfirm}
+                    onCancel={hideDatePicker}
+                />
 
                 <Text style={[styles.t18, {marginLeft: '6%', marginTop: 20}]}>Challenge Management</Text>
 
@@ -136,7 +223,7 @@ function ListDetail({ route, navigation }) {
                 </View>
 
                 <View style={{ alignSelf: 'center', marginLeft: '6%', marginTop: 10 }}>
-                    <TouchableOpacity style={styles.detailbutton}>
+                    <TouchableOpacity style={styles.detailbutton} onPress = {createAlert}>
                         <Text style={[styles.t14, { fontWeight: '400' }]}>
                             Leave Challenge
                         </Text>
@@ -158,6 +245,28 @@ function ListDetail({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
+    dateInput: {
+        width: '100%',
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        borderColor: '#505d68',
+        borderBottomColor: '#505d68',
+        borderBottomWidth: 2,
+        borderWidth: 1,
+        borderRadius: 10,
+        fontSize: 16,
+    },
+    loginInput: {
+        width: '100%',
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderColor: '#505d68',
+        borderBottomColor: '#505d68',
+        borderBottomWidth: 2,
+        borderWidth: 1,
+        borderRadius: 10,
+        fontSize: 16,
+    },
     youtubeView: {
         width: '88%',
         height: 280,
@@ -195,6 +304,11 @@ const styles = StyleSheet.create({
         marginLeft: '6%',
         marginBottom: 10
     },
+    modalTitle: {
+        fontSize: 21,
+        fontWeight: '500',
+        marginLeft: 5,
+    },
     detailbutton: {
         paddingVertical: 8,
         paddingHorizontal: 10,
@@ -225,6 +339,14 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#E6447D',
         backgroundColor: '#E6447D'
+    },
+    closeButton: {
+        paddingVertical: 13,
+        paddingHorizontal: 30,
+        borderRadius: 10,
+        borderWidth: 1.5,
+        borderColor: '#000',
+        backgroundColor: '#fofofo'
     },
     t18: {
         fontSize: 18,

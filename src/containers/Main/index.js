@@ -148,7 +148,7 @@ function MainScreen({ navigation }) {
                         setisVisible(false);
                     }}
                     style = {{backgroundColor: '#fff'}}
-                    transparent={true}
+                    transparent={false}
                     visible={isVisible}>
                     <ScrollView >
                         <View style={styles.modalcontain}>
