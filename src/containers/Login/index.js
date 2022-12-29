@@ -1,9 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Image, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import Header from '../../components/Header/index';
 import { FontAwesome } from '@expo/vector-icons';
+// import { METHODS } from 'http';
 
 function LoginScreen({ navigation }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const [isShown, setIsShown] = useState(true);
+  const togglePassword = () => {
+    setIsShown((isShown) => !isShown);
+  }
+
+  const loginRequest = () => {
+    var sendToData = {email: email, password: password};
+    fetch(
+      'http://10.10.10.49:3000/auth/sign_in',
+      {
+        method: 'post',
+        body: JSON.stringify(sendToData),
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Expose-Headers': 'access-token, client, uid' 
+        },
+      }
+    ).then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson)
+      if (responseJson['success'] == false) {
+        alert(responseJson['errors']); 
+      } else {
+        navigation.navigate('main');
+      }
+    })
+    .catch((error) => {
+      alert(JSON.stringify(error));
+      console.log(error);
+    });
+  };
+
   return (
     <ScrollView>
       <View style={{ flex: 1 }}>
@@ -13,11 +49,11 @@ function LoginScreen({ navigation }) {
           <Text style={styles.t35}>Login</Text>
           <Text style={[styles.t20, { fontWeight: '300', paddingTop: 20 }]}>Stay updated on your health and fitness.</Text>
           <View style={{ width: '88%', marginTop: 40 }}>
-            <TextInput placeholder="UserName" style={[styles.loginInput]} />
+            <TextInput placeholder="UserName" style={[styles.loginInput]} onChangeText={(value) => setEmail(value)} />
           </View>
           <View style={{ width: '88%', marginTop: 20, display: 'flex', flexDirection: 'row' }}>
-            <TextInput placeholder="Password" style={[styles.loginInput]} />
-            <TouchableOpacity style={{ position: 'absolute', right: 10, top: 10 }}>
+            <TextInput placeholder="Password" style={[styles.loginInput]} secureTextEntry={isShown} onChangeText={(value) => setPassword(value)} />
+            <TouchableOpacity style={{ position: 'absolute', right: 10, top: 10 }} onPress={togglePassword}>
               <FontAwesome name="eye-slash" size={24} color="#999999" />
             </TouchableOpacity>
           </View>
@@ -27,8 +63,7 @@ function LoginScreen({ navigation }) {
             </TouchableOpacity>
           </View>
           <View style={{ paddingTop: 50 }}>
-            <TouchableOpacity style={styles.signButton} onPress={() =>
-              navigation.navigate('main')}>
+            <TouchableOpacity style={styles.signButton} onPress={loginRequest}>
               <Text style={[styles.t15, styles.textCenter, styles.colorWhite, { fontWeight: '700' }]}>
                 SIGN IN
               </Text>

@@ -11,20 +11,39 @@ function SignUpScreen({ navigation }) {
     const [username, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [accept, setAccept] = useState(false);
 
-    const [isname, isSetName] = useState(false);
-    const [isemail, isSetEmail] = useState(false);
-    const [ispassword, isSetPassword] = useState(false);
+    const [isname, isSetName] = useState(true);
+    const [isemail, isSetEmail] = useState(true);
+    const [ispassword, isSetPassword] = useState(true);
 
-    const signIn = () => {                          // <= Added this function
+    const signUp = () => {                          // <= Added this function
         const strongRegex = new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
         
-        if(username.length >0){
-            isSetName(ture);
-        }else if (!strongRegex.test(email)) {
+        if(username.length <= 0){
+            isSetName(false);
+        } else {
+            isSetName(true);
+        }
+        if (!strongRegex.test(email)) {
             isSetEmail(false);
-        } else if (password.length < 8) {
+        } else {
+            isSetEmail(true);
+        }
+        if (password.length < 8) {
             isSetPassword(false);
+        } else {
+            isSetPassword(true);
+        }
+        if (!isAccept) {
+            setAccept(true);
+        } 
+
+        if (username.length > 0 && strongRegex.test(email) && password.length > 7) {
+            setUserName('');
+            setEmail('');
+            setPassword('');
+            navigation.navigate('step1');
         }
     }
 
@@ -47,6 +66,7 @@ function SignUpScreen({ navigation }) {
                         <TextInput 
                             placeholder="UserName" 
                             style={styles.signUpInput}
+                            value={username}
                             onChangeText = {(username) => setUserName(username)} />
                     </View>
 
@@ -61,20 +81,37 @@ function SignUpScreen({ navigation }) {
                     <View style={{ width: '88%', marginTop: 20 }}>
                         <TextInput 
                             placeholder="Email" 
+                            value={email}
                             style={styles.signUpInput} 
                             onChangeText = {(email) => setEmail(email)}/>
                     </View>
+
+                    { !isemail ? 
+                        (
+                            <Text style={[styles.t15, styles.textCenter, styles.marginTop, { fontWeight: '300', color: '#ff0000'} ]}>
+                                Please, enter your Valid email!
+                            </Text>  
+                        ) : null
+                    }
 
                     <View style={{ width: '88%', marginTop: 20, display: 'flex', flexDirection: 'row' }}>
                         <TextInput 
                             placeholder="Password" 
                             style={styles.signUpInput} 
+                            value={password}
                             secureTextEntry={isShown}
                             onChangeText = {(password) => setPassword(password)}/>
                         <TouchableOpacity style={{ position: 'absolute', right: 10, top: 10 }} onPress={togglePassword}>
                             <FontAwesome name="eye-slash" size={24} color="#999999" />
                         </TouchableOpacity>
                     </View>
+                    { !ispassword ? 
+                        (
+                            <Text style={[styles.t15, styles.textCenter, styles.marginTop, { fontWeight: '300', color: '#ff0000'} ]}>
+                                Required Password!
+                            </Text>  
+                        ) : null
+                    }
 
                     <View style={{ paddingTop: 50, width: '88%', display: 'flex', flexWrap: "wrap", flexDirection: 'row' }}>
                         <Checkbox value={isAccept} color="#ff0000" onValueChange={checkAccept} style={styles.checkBox}
@@ -92,18 +129,17 @@ function SignUpScreen({ navigation }) {
                                 Privacy Statement.</Text>
                         </TouchableOpacity>
 
-                        { !isAccept ? 
+                        {accept ? (!isAccept ? 
                             (
                                 <Text style={[styles.t15, styles.textCenter, styles.marginTop, { fontWeight: '300', color: '#ff0000'} ]}>
                                     Please, accept Terms and Conditions and Privacy statement
                                 </Text>  
-                            ) : null
+                            ) : null) : null
                         }
                     </View>
 
                     <View style={{ paddingTop: 30 }}>
-                        <TouchableOpacity style={styles.signButton} onPress={() =>
-                            navigation.navigate('step1')}>
+                        <TouchableOpacity style={styles.signButton} onPress={signUp}>
                             <Text style={[styles.t15, styles.textCenter, styles.colorWhite, { fontWeight: '700' }]}>
                                 SIGN UP
                             </Text>
