@@ -139,16 +139,7 @@ function MainScreen({ navigation }) {
 
                 <List navigationFunc={() => navigation.navigate('lstdetail')} />
 
-                <TouchableOpacity style={styles.addbutton} onPress={() => {
-                    setisVisible(true);
-                }}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <AntDesign name="pluscircleo" size={15} color="#E6447D" style={{ marginTop: 2, marginRight: 5 }} />
-                        <Text style={[styles.t15, styles.textCenter, styles.colorPink, { fontWeight: '700' }]}>
-                            Add New Challenge
-                        </Text>
-                    </View>
-                </TouchableOpacity>
+                
 
                 <Modal
                     animationType={"slide"}
@@ -289,13 +280,23 @@ function MainScreen({ navigation }) {
                                     </TouchableOpacity>
                                 </View>
                             </View>
-
+                            
                         </View>
                     </ScrollView>
 
 
                 </Modal>
             </View>
+            <TouchableOpacity style={[styles.addbutton, {left: 20, bottom: 10, position: 'absolute'}]} onPress={() => {
+                setisVisible(true);
+            }}>
+                <View style={{ flexDirection: 'row' }}>
+                    <AntDesign name="pluscircleo" size={15} color="#E6447D" style={{ marginTop: 2, marginRight: 5 }} />
+                    <Text style={[styles.t15, styles.textCenter, styles.colorPink, { fontWeight: '700' }]}>
+                        Add New Challenge
+                    </Text>
+                </View>
+            </TouchableOpacity>
         </View>
     );
 }
