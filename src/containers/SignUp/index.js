@@ -8,6 +8,26 @@ function SignUpScreen({ navigation }) {
     const [isShown, setIsShown] = useState(true);
     const [isAccept, setIsAccept] = useState(false);
 
+    const [username, setUserName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const [isname, isSetName] = useState(false);
+    const [isemail, isSetEmail] = useState(false);
+    const [ispassword, isSetPassword] = useState(false);
+
+    const signIn = () => {                          // <= Added this function
+        const strongRegex = new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
+        
+        if(username.length >0){
+            isSetName(ture);
+        }else if (!strongRegex.test(email)) {
+            isSetEmail(false);
+        } else if (password.length < 8) {
+            isSetPassword(false);
+        }
+    }
+
     const checkAccept = () => {
         setIsAccept((isAccept) => !isAccept);
     }
@@ -22,14 +42,35 @@ function SignUpScreen({ navigation }) {
                 <View style={styles.signUpContent}>
                     <Text style={styles.t20bold}>Make the most of your health</Text>
                     <Text style={[styles.t20, { fontWeight: '300', paddingTop: 20 }]}>as a member</Text>
+
                     <View style={{ width: '88%', marginTop: 40 }}>
-                        <TextInput placeholder="UserName" style={[styles.signUpInput]} />
+                        <TextInput 
+                            placeholder="UserName" 
+                            style={styles.signUpInput}
+                            onChangeText = {(username) => setUserName(username)} />
                     </View>
+
+                    { !isname ? 
+                        (
+                            <Text style={[styles.t15, styles.textCenter, styles.marginTop, { fontWeight: '300', color: '#ff0000'} ]}>
+                                Please, enter your name!
+                            </Text>  
+                        ) : null
+                    }
+
                     <View style={{ width: '88%', marginTop: 20 }}>
-                        <TextInput placeholder="Email" style={[styles.signUpInput]} />
+                        <TextInput 
+                            placeholder="Email" 
+                            style={styles.signUpInput} 
+                            onChangeText = {(email) => setEmail(email)}/>
                     </View>
+
                     <View style={{ width: '88%', marginTop: 20, display: 'flex', flexDirection: 'row' }}>
-                        <TextInput placeholder="Password" style={[styles.signUpInput]} secureTextEntry={isShown}/>
+                        <TextInput 
+                            placeholder="Password" 
+                            style={styles.signUpInput} 
+                            secureTextEntry={isShown}
+                            onChangeText = {(password) => setPassword(password)}/>
                         <TouchableOpacity style={{ position: 'absolute', right: 10, top: 10 }} onPress={togglePassword}>
                             <FontAwesome name="eye-slash" size={24} color="#999999" />
                         </TouchableOpacity>
