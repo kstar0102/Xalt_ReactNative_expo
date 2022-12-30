@@ -7,7 +7,7 @@ import Footer from '../../components/Footer/index';
 function Step5Screen({ navigation }) {
     return (
             <View style={{ flex: 1 }}>
-                <Header pressLogo={() => navigation.navigate('home')} />
+                <Header pressLogo={() => navigation.navigate('home')} stepStr={'5'}/>
                 <Text style={{width: '50%', height: 10, backgroundColor: '#E6447D'}} />
                 <View style={styles.step5Content}>
                     <Text style={styles.t20bold}>Almost Done!</Text>

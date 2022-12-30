@@ -7,48 +7,57 @@ import Slider from '@react-native-community/slider';
 
 function Step8Screen({ navigation }) {
     const [sliderValue, setSliderValue] = useState(1);
+    let levelCoach = [
+        '',
+        'Not Intense',
+        'A Little Intense',
+        'Somewhat Intense',
+        'Intense',
+        'Extremely Intense'
+    ];
 
     return (
-            <View style={{ flex: 1 }}>
-                <Header pressLogo={() => navigation.navigate('home')} />
-                <Text style={{width: '80%', height: 10, backgroundColor: '#E6447D'}} />
-                <View style={styles.step1Content}>
+        <View style={{ flex: 1 }}>
+            <Header pressLogo={() => navigation.navigate('home')} stepStr={'8'}/>
+            <Text style={{ width: '80%', height: 10, backgroundColor: '#E6447D' }} />
+            <View style={styles.step1Content}>
 
-                    <Text style={styles.t20bold}>What level of intensity do you expect</Text>
-                    <Text style={styles.t20bold}>from your coach?</Text>
+                <Text style={styles.t20bold}>What level of intensity do you expect</Text>
+                <Text style={styles.t20bold}>from your coach?</Text>
 
-                    <View style={styles.rangeView}>
-                        <Text style={[styles.t18, styles.textCenter,
-                        { fontWeight: '300', marginTop: 30 }]}>Not intense</Text>
-                        <Text style={{ width: '30%' }} />
-                        <Text style={[styles.t18, styles.textCenter, { fontWeight: '300', marginTop: 30 }]}>Extremely Intense</Text>
-                    </View>
-
-                    <Slider style={{ width: "35%", height: '2%', marginTop: -14, marginLeft: -43 }}
-                        maximumValue={5}
-                        minimumValue={1}
-                        thumbTintColor="#E6447D"
-                        minimumTrackTintColor="#F50057"
-                        maximumTrackTintColor="#000000"
-                        step={1}
-                        value={sliderValue}
-                        onValueChange={
-                            (sliderValue) => setSliderValue(sliderValue)} />
-
-                    <TouchableOpacity style={[styles.dayButton, styles.bgPink]}>
-                        <Text style={[styles.t18, styles.textCenter, styles.colorPink, { fontWeight: '500' }]}>
-                            {sliderValue} day
-                        </Text>
-                    </TouchableOpacity>
-
-                    
-
+                <View style={styles.rangeView}>
+                    <Text style={[styles.t18, styles.textCenter,
+                    { fontWeight: '300', marginTop: 30 }]}>Not intense</Text>
+                    <Text style={{ width: '35%' }} />
+                    <Text style={[styles.t18, styles.textCenter, { fontWeight: '300', marginTop: 30 }]}>Extremely Intense</Text>
                 </View>
-                <Footer navigationNext={() =>
-                                navigation.navigate('step11')} 
-                                navgationPrevious={() =>
-                                navigation.navigate('step7')}/>
+
+                <Slider style={{ width: "35%", height: '2%', marginTop: -10, marginLeft: -43 }}
+                    maximumValue={5}
+                    minimumValue={1}
+                    thumbTintColor="#E6447D"
+                    minimumTrackTintColor="#F50057"
+                    maximumTrackTintColor="#000000"
+                    step={1}
+                    value={sliderValue}
+                    onValueChange={
+                        (sliderValue) => setSliderValue(sliderValue)} />
+
+
+                <TouchableOpacity style={[styles.dayButton, styles.bgPink]}>
+                    <Text style={[styles.t18, styles.textCenter, styles.colorPink, { fontWeight: '500' }]}>
+                        {levelCoach[sliderValue]}
+                    </Text>
+                </TouchableOpacity>
+
+
+
             </View>
+            <Footer navigationNext={() =>
+                navigation.navigate('step11')}
+                navgationPrevious={() =>
+                    navigation.navigate('step7')} />
+        </View>
     );
 }
 

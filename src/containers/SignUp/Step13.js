@@ -1,31 +1,38 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, ScrollView, TouchableOpacity } from 'react-native';
 import Header from '../../components/Header/index';
+import { SvgUri } from 'react-native-svg';
 
 function Step5Screen({ navigation }) {
     return (
-            <View style={{ flex: 1 }}>
-                <Header pressLogo={() => navigation.navigate('home')} />
-                <Text style={{width: '100%', height: 10, backgroundColor: '#E6447D'}} />
-                <View style={styles.step5Content}>
-                    <Text style={styles.t20bold}>Thank you for taking onboarding</Text>
-                    <Text style={styles.t20bold}>step!</Text>
-                    <Text style={[styles.t18, styles.textCenter, { fontWeight: '300', marginTop: 20 }]}>
-                        Click next to head to your dashboard!</Text>
+        <View style={{ flex: 1 }}>
+            <Header pressLogo={() => navigation.navigate('home')} stepStr={'Final Step'} />
+            <Text style={{ width: '100%', height: 10, backgroundColor: '#E6447D' }} />
+            <SvgUri
+                width="50"
+                height="50"
+                // uri="http://thenewcode.com/assets/images/thumbnails/homer-simpson.svg"
+                style={{ alignSelf: 'center', marginVertical: 20 }}
+            />
+            <View style={styles.step5Content}>
+                <Text style={styles.t20bold}>Thank you for taking onboarding</Text>
+                <Text style={styles.t20bold}>step!</Text>
+                <Text style={[styles.t18, styles.textCenter, { fontWeight: '300', marginTop: 20 }]}>
+                    Click next to head to your dashboard!</Text>
 
-                    
-                </View>
-                <View style={{ flexDirection: 'row', bottom:10, right:20, position:'absolute' }}>
-                        <View style={{ paddingTop: 130}}>
-                            <TouchableOpacity style={styles.signButton} onPress={() =>
-                                navigation.navigate('main')}>
-                                <Text style={[styles.t15, styles.colorWhite, { fontWeight: '700' }]}>
-                                    NEXT
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
+
+            </View>
+            <View style={{ flexDirection: 'row', bottom: 10, right: 20, position: 'absolute' }}>
+                <View style={{ paddingTop: 130 }}>
+                    <TouchableOpacity style={styles.signButton} onPress={() =>
+                        navigation.navigate('main')}>
+                        <Text style={[styles.t15, styles.colorWhite, { fontWeight: '700' }]}>
+                            NEXT
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             </View>
+        </View>
     );
 }
 

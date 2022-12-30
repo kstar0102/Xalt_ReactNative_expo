@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, TextInput, Alert, ScrollView } from 'react-native';
 import Header from '../../components/Header/index';
-import { Calendar } from 'react-native-calendars';
 import Overlay from 'react-native-modal-overlay';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import CalendarPicker from 'react-native-calendar-picker';
 
 function ListDetail({ route, navigation }) {
     const [isVisible, setisVisible] = useState(false);
@@ -116,13 +116,13 @@ function ListDetail({ route, navigation }) {
                     </TouchableOpacity>
                 </View>
 
-                <Calendar
+                {/* <Calendar
                     markedDates={{
                         [date]: { selected: true, marked: true, selectedColor: 'blue' },
                     }}
                     current={getCurrentDate().toString()}
                     minDate={getMinDate().toString()}
-                    maxData={'2050-01-01'}
+                    maxData={'2023-01-10'}
                     monthFormat={'MMMM yyyy'}
                     onDayPress={(day) => {
                         setDate(day.dateString);
@@ -136,6 +136,20 @@ function ListDetail({ route, navigation }) {
                         todayTextColor: 'red',
                     }}
                     style={{ width: '88%', marginLeft: '6%' }}
+                /> */}
+
+                <CalendarPicker 
+                    style={{ width: '88%', marginLeft: '6%' }}
+                    startFromMonday = {true}
+                    allowRangeSelection = {false}
+                    disabledDates = {['2023-01-15', '2023-01-16']}
+                    minDate = {getCurrentDate()}
+                    maxDate = {new Date(2050,6,3)}
+                    weekdays = {['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun']}
+                    selectedDayColor = '#E6447D'
+                    selectedStartDate = '2023-01-01'
+                    selectedEndDate = '2023-01-03'
+                    onDateChange={() => console.log('aaaaa')}
                 />
 
                 <View style={{ alignSelf: 'flex-start', marginLeft: '6%', marginTop: 10 }}>

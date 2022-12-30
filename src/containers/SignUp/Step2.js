@@ -10,7 +10,7 @@ function Step2Screen({ navigation }) {
 
     return (
             <View style={{ flex: 1 }}>
-                <Header pressLogo={() => navigation.navigate('home')} />
+                <Header pressLogo={() => navigation.navigate('home')} stepStr={'2'}/>
                 <Text style={{width: '20%', height: 10, backgroundColor: '#E6447D'}} />
                 <View style={styles.step1Content}>
 

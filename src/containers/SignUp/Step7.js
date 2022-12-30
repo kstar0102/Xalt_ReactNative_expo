@@ -19,10 +19,11 @@ const initialState = {
 
 function Step7Screen({ navigation }) {
     const [state, setState] = React.useState(initialState);
+    const [isFirst, setIsFirst] = useState(false);
 
     return (
             <View style={{ flex: 1 }}>
-                <Header pressLogo={() => navigation.navigate('home')} />
+                <Header pressLogo={() => navigation.navigate('home')} stepStr={'7'}/>
                 <Text style={{width: '70%', height: 10, backgroundColor: '#E6447D'}} />
                 <View style={styles.headercontain}>
                     <Text style={styles.t20bold}>How would you describe your ideal</Text>
@@ -138,8 +139,15 @@ function Step7Screen({ navigation }) {
                     <Text style={styles.t18}>Stricly business</Text>
                 </View>
 
-                <Footer navigationNext={() =>
-                                navigation.navigate('step8')} 
+                {
+                isFirst ?
+                    (<Text style={[styles.t15, styles.textCenter, styles.marginTop, { fontWeight: '300', color: '#ff0000' }]}>
+                        You must choose at least 1 option!
+                    </Text>) : null
+
+                }
+
+                <Footer navigationNext={() => { if ((!state.high_energy && !state.sense_humour && !state.calm_cool && !state.analyitical_result && !state.always_positive && !state.every_time && !state.drill_sergeant && !state.no_preference && !state.stricly_business)) { setIsFirst(true); } else { setIsFirst(false); navigation.navigate('step8'); } }}
                                 navgationPrevious={() =>
                                 navigation.navigate('step6')}/>
 

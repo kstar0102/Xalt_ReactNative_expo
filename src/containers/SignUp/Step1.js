@@ -7,54 +7,54 @@ function Step1Screen({ navigation }) {
     const [sliderValue, setSliderValue] = useState(1);
 
     return (
-            <View style={{ flex: 1 }}>
-                <Header pressLogo={() => navigation.navigate('home')} />
-                <Text style={{width: '10%', height: 10, backgroundColor: '#E6447D'}} />
-                <View style={styles.step1Content} >
-                    <Text style={styles.t20bold}>How many days did you</Text>
-                    <Text style={styles.t20bold}>exercise/move last week?</Text>
+        <View style={{ flex: 1 }}>
+            <Header pressLogo={() => navigation.navigate('home')} stepStr={'1'} />
+            <Text style={{ width: '10%', height: 10, backgroundColor: '#E6447D' }} />
+            <View style={styles.step1Content} >
+                <Text style={styles.t20bold}>How many days did you</Text>
+                <Text style={styles.t20bold}>exercise/move last week?</Text>
 
-                    <Text style={[styles.t18, styles.textCenter, { fontWeight: '300', marginTop: 20 }]}>
-                        Movement is any form of exercise and/or activity</Text>
-                    <Text style={[styles.t18, styles.textCenter, { fontWeight: '300', }]}>
-                        that is at least of a moderate intesnity and that</Text>
-                    <Text style={[styles.t18, styles.textCenter, { fontWeight: '300', }]}>
-                        raises your heart rate.</Text>
+                <Text style={[styles.t18, styles.textCenter, { fontWeight: '300', marginTop: 20 }]}>
+                    Movement is any form of exercise and/or activity</Text>
+                <Text style={[styles.t18, styles.textCenter, { fontWeight: '300', }]}>
+                    that is at least of a moderate intesnity and that</Text>
+                <Text style={[styles.t18, styles.textCenter, { fontWeight: '300', }]}>
+                    raises your heart rate.</Text>
 
-                    <View style={styles.rangeView}>
-                        <Text style={[styles.t18, styles.textCenter,
-                        { fontWeight: '300', marginTop: 30 }]}>1 day</Text>
-                        <Text style={{ width: '60%',}} />
-                        <Text style={[styles.t18, styles.textCenter, { fontWeight: '300', marginTop: 30 }]}>7 days</Text>
-                    </View>
+                <View style={styles.rangeView}>
+                    <Text style={[styles.t18, styles.textCenter,
+                    { fontWeight: '300', marginTop: 30 }]}>1 day</Text>
+                    <Text style={{ width: '60%', }} />
+                    <Text style={[styles.t18, styles.textCenter, { fontWeight: '300', marginTop: 30 }]}>7 days</Text>
+                </View>
 
-                    <Slider style={{ width: "60%", height: '2%', marginTop: -14, marginLeft: -10 }}
-                        maximumValue={7}
-                        minimumValue={1}
-                        thumbTintColor="#E6447D"
-                        minimumTrackTintColor="#F50057"
-                        maximumTrackTintColor="#000000"
-                        step={1}
-                        value={sliderValue}
-                        onValueChange={
-                            (sliderValue) => setSliderValue(sliderValue)} />
+                <Slider style={{ width: "60%", height: '2%', marginTop: -14, marginLeft: -10 }}
+                    maximumValue={7}
+                    minimumValue={1}
+                    thumbTintColor="#E6447D"
+                    minimumTrackTintColor="#F50057"
+                    maximumTrackTintColor="#000000"
+                    step={1}
+                    value={sliderValue}
+                    onValueChange={
+                        (sliderValue) => setSliderValue(sliderValue)} />
 
-                    <TouchableOpacity style={[styles.dayButton, styles.bgPink]}>
-                        <Text style={[styles.t18, styles.textCenter, styles.colorPink, { fontWeight: '500' }]}>
-                            {sliderValue} day
+                <TouchableOpacity style={[styles.dayButton, styles.bgPink]}>
+                    <Text style={[styles.t18, styles.textCenter, styles.colorPink, { fontWeight: '500' }]}>
+                        {sliderValue} day
+                    </Text>
+                </TouchableOpacity>
+
+                <View style={{ alignSelf: 'flex-end', marginTop: '90%', marginRight: '10%', bottom: 90, }}>
+                    <TouchableOpacity style={styles.signButton} onPress={() =>
+                        navigation.navigate('step2')}>
+                        <Text style={[styles.t15, styles.colorWhite, { fontWeight: '700' }]}>
+                            NEXT
                         </Text>
                     </TouchableOpacity>
-
-                    <View style={{alignSelf: 'flex-end', marginTop:'90%', marginRight: '10%',   bottom:50,}}>
-                        <TouchableOpacity style={styles.signButton} onPress={() =>
-                            navigation.navigate('step2')}>
-                            <Text style={[styles.t15, styles.colorWhite, { fontWeight: '700' }]}>
-                                NEXT
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
                 </View>
             </View>
+        </View>
     );
 }
 
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 100,
 
     },
-    track:{
+    track: {
         height: 80,
         borderBottomRightRadius: 20,
         borderTopRightRadius: 20,

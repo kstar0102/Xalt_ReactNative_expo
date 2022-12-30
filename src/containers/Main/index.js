@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, TextInput, Modal, Button, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, TextInput, Modal } from 'react-native';
 import Header from '../../components/Header/index';
 import List from '../../components/List'
 import { FontAwesome, AntDesign } from '@expo/vector-icons';
@@ -7,6 +7,7 @@ import { useForm, Controller } from 'react-hook-form';
 import DropDownPicker from 'react-native-dropdown-picker'
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Checkbox from 'expo-checkbox';
+import { ScrollView } from 'react-native-virtualized-view'
 
 function MainScreen({ navigation }) {
     const [isVisible, setisVisible] = useState(false);
@@ -70,7 +71,6 @@ function MainScreen({ navigation }) {
     ]);
     const { handleSubmit, control } = useForm();
     const onGenderOpen = useCallback(() => {
-        setCompanyOpen(false);
     }, []);
 
     const [isAccept, setIsAccept] = useState(false);
@@ -84,7 +84,7 @@ function MainScreen({ navigation }) {
             <Header pressLogo={() => navigation.navigate('home')} />
             <View style={styles.mainContent}>
                 <View style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity style={[styles.Topbutton, { backgroundColor: bgColor.top }]} onPress={() => {
+                    <TouchableOpacity id='topbutton' style={[styles.Topbutton, { backgroundColor: bgColor.top }]} onPress={() => {
                         setBGColor(
                             { top: '#999999' },
                             { own: '#' },
@@ -139,22 +139,30 @@ function MainScreen({ navigation }) {
 
                 <List navigationFunc={() => navigation.navigate('lstdetail')} />
 
-                
+                <TouchableOpacity style={styles.addbutton} onPress={() => {
+                    setisVisible(true);
+                }}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <AntDesign name="pluscircleo" size={15} color="#E6447D" style={{ marginTop: 2, marginRight: 5 }} />
+                        <Text style={[styles.t15, styles.textCenter, styles.colorPink, { fontWeight: '700' }]}>
+                            Add New Challenge
+                        </Text>
+                    </View>
+                </TouchableOpacity>
 
                 <Modal
                     animationType={"slide"}
-                    onRequestClose={() => {
-                        console.log("Modal has been closed.");
-                        setisVisible(false);
-                    }}
-                    style = {{backgroundColor: '#fff'}}
                     transparent={false}
                     visible={isVisible}>
-                    <ScrollView >
+                    <ScrollView>
                         <View style={styles.modalcontain}>
                             <Text style={styles.modalHeader}>New Challenge</Text>
                             <View style={{ width: '88%', marginTop: 10 }}>
-                                <TextInput placeholder="Name of Challenge..." style={[styles.loginInput]} />
+                                <TextInput
+                                    placeholder="Name of Challenge..."
+                                    onChangeText={e => console.log(e)}
+                                    value={'aa'}
+                                    style={[styles.loginInput]} />
                             </View>
 
                             <View style={{ width: '88%', marginTop: 10 }}>
@@ -212,28 +220,28 @@ function MainScreen({ navigation }) {
                             <Text style={styles.scheduletile}>Schedule</Text>
 
                             <View style={{ flexDirection: 'row', width: '88%', marginTop: 10 }}>
-                                <TouchableOpacity onPress={() => setMon(!mon)} style={[styles.schedulebutton, mon ? { backgroundColor: '#E6447D' } : '']}>
-                                    <Text style={[styles.t15, styles.textCenter, { fontWeight: '700' }]}>
+                                <TouchableOpacity id='topbutton' onPress={() => setMon(!mon)} style={[styles.schedulebutton, mon ? { backgroundColor: '#E6447D' } : '']}>
+                                    <Text style={[styles.t15, styles.textCenter, styles.colorWhite, { fontWeight: '700' }]}>
                                         MON
                                     </Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => seTtue(!tue)} style={[styles.schedulebutton, tue ? { backgroundColor: '#E6447D' } : '']}>
-                                    <Text style={[styles.t15, styles.textCenter, { fontWeight: '700' }]}>
+                                <TouchableOpacity id='topbutton' onPress={() => seTtue(!tue)} style={[styles.schedulebutton, tue ? { backgroundColor: '#E6447D' } : '']}>
+                                    <Text style={[styles.t15, styles.textCenter, styles.colorWhite, { fontWeight: '700' }]}>
                                         TUES
                                     </Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => setWed(!wed)} style={[styles.schedulebutton, wed ? { backgroundColor: '#E6447D' } : '']}>
-                                    <Text style={[styles.t15, styles.textCenter, { fontWeight: '700' }]}>
+                                <TouchableOpacity id='topbutton' onPress={() => setWed(!wed)} style={[styles.schedulebutton, wed ? { backgroundColor: '#E6447D' } : '']}>
+                                    <Text style={[styles.t15, styles.textCenter, styles.colorWhite, { fontWeight: '700' }]}>
                                         WED
                                     </Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => setThu(!thu)} style={[styles.schedulebutton, thu ? { backgroundColor: '#E6447D' } : '']}>
-                                    <Text style={[styles.t15, styles.textCenter, { fontWeight: '700' }]}>
+                                <TouchableOpacity id='topbutton' onPress={() => setThu(!thu)} style={[styles.schedulebutton, thu ? { backgroundColor: '#E6447D' } : '']}>
+                                    <Text style={[styles.t15, styles.textCenter, styles.colorWhite, { fontWeight: '700' }]}>
                                         THUR
                                     </Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => setFri(!fri)} style={[styles.schedulebutton, fri ? { backgroundColor: '#E6447D' } : '']}>
-                                    <Text style={[styles.t15, styles.textCenter, { fontWeight: '700' }]}>
+                                <TouchableOpacity id='topbutton' onPress={() => setFri(!fri)} style={[styles.schedulebutton, fri ? { backgroundColor: '#E6447D' } : '']}>
+                                    <Text style={[styles.t15, styles.textCenter, styles.colorWhite, { fontWeight: '700' }]}>
                                         FRI
                                     </Text>
                                 </TouchableOpacity>
@@ -280,23 +288,13 @@ function MainScreen({ navigation }) {
                                     </TouchableOpacity>
                                 </View>
                             </View>
-                            
+
                         </View>
                     </ScrollView>
 
 
                 </Modal>
             </View>
-            <TouchableOpacity style={[styles.addbutton, {left: 20, bottom: 10, position: 'absolute'}]} onPress={() => {
-                setisVisible(true);
-            }}>
-                <View style={{ flexDirection: 'row' }}>
-                    <AntDesign name="pluscircleo" size={15} color="#E6447D" style={{ marginTop: 2, marginRight: 5 }} />
-                    <Text style={[styles.t15, styles.textCenter, styles.colorPink, { fontWeight: '700' }]}>
-                        Add New Challenge
-                    </Text>
-                </View>
-            </TouchableOpacity>
         </View>
     );
 }

@@ -18,6 +18,7 @@ import Step11 from './src/containers/SignUp/Step11';
 import Step12 from './src/containers/SignUp/Step12';
 import Step13 from './src/containers/SignUp/Step13';
 import ListDetail from './src/containers/Main/listDetail';
+import DropdownComponent from './src/components/DropDown';
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +46,7 @@ function App() {
         <Stack.Screen name="step12" component={Step12} />
         <Stack.Screen name="step13" component={Step13} />
         <Stack.Screen name='lstdetail' component={ListDetail} />
+        <Stack.Screen name='dropdown' component={DropdownComponent} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, TextInput, TouchableOpacity, ScrollView, } from 'react-native';
 import Header from '../../components/Header/index';
 import { FontAwesome } from '@expo/vector-icons';
 import Checkbox from 'expo-checkbox';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function SignUpScreen({ navigation }) {
+
     const [isShown, setIsShown] = useState(true);
     const [isAccept, setIsAccept] = useState(false);
 
@@ -17,10 +19,20 @@ function SignUpScreen({ navigation }) {
     const [isemail, isSetEmail] = useState(true);
     const [ispassword, isSetPassword] = useState(true);
 
+    const storeUser = async () => {
+        try {
+            await AsyncStorage.setItem("user", username);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
     const signUp = () => {                          // <= Added this function
+        // navigation.navigate('step4')
         const strongRegex = new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
-        
-        if(username.length <= 0){
+
+        if (username.length <= 0) {
             isSetName(false);
         } else {
             isSetName(true);
@@ -37,12 +49,13 @@ function SignUpScreen({ navigation }) {
         }
         if (!isAccept) {
             setAccept(true);
-        } 
+        }
 
         if (username.length > 0 && strongRegex.test(email) && password.length > 7) {
             setUserName('');
             setEmail('');
             setPassword('');
+            storeUser();
             navigation.navigate('step1');
         }
     }
@@ -57,59 +70,59 @@ function SignUpScreen({ navigation }) {
     return (
         <ScrollView>
             <View style={{ flex: 1 }}>
-                <Header pressLogo={() => navigation.navigate('home')} />
+                <Header pressLogo={() => navigation.navigate('home')} isLogin={true} />
                 <View style={styles.signUpContent}>
                     <Text style={styles.t20bold}>Make the most of your health</Text>
                     <Text style={[styles.t20, { fontWeight: '300', paddingTop: 20 }]}>as a member</Text>
 
                     <View style={{ width: '88%', marginTop: 40 }}>
-                        <TextInput 
-                            placeholder="UserName" 
+                        <TextInput
+                            placeholder="UserName"
                             style={styles.signUpInput}
                             value={username}
-                            onChangeText = {(username) => setUserName(username)} />
+                            onChangeText={(username) => setUserName(username)} />
                     </View>
 
-                    { !isname ? 
+                    {!isname ?
                         (
-                            <Text style={[styles.t15, styles.textCenter, styles.marginTop, { fontWeight: '300', color: '#ff0000'} ]}>
+                            <Text style={[styles.t15, styles.textCenter, styles.marginTop, { fontWeight: '300', color: '#ff0000' }]}>
                                 Please, enter your name!
-                            </Text>  
+                            </Text>
                         ) : null
                     }
 
                     <View style={{ width: '88%', marginTop: 20 }}>
-                        <TextInput 
-                            placeholder="Email" 
+                        <TextInput
+                            placeholder="Email"
                             value={email}
-                            style={styles.signUpInput} 
-                            onChangeText = {(email) => setEmail(email)}/>
+                            style={styles.signUpInput}
+                            onChangeText={(email) => setEmail(email)} />
                     </View>
 
-                    { !isemail ? 
+                    {!isemail ?
                         (
-                            <Text style={[styles.t15, styles.textCenter, styles.marginTop, { fontWeight: '300', color: '#ff0000'} ]}>
-                                Please, enter your Valid email!
-                            </Text>  
+                            <Text style={[styles.t15, styles.textCenter, styles.marginTop, { fontWeight: '300', color: '#ff0000' }]}>
+                                Please, enter your valid email!
+                            </Text>
                         ) : null
                     }
 
                     <View style={{ width: '88%', marginTop: 20, display: 'flex', flexDirection: 'row' }}>
-                        <TextInput 
-                            placeholder="Password" 
-                            style={styles.signUpInput} 
+                        <TextInput
+                            placeholder="Password"
+                            style={styles.signUpInput}
                             value={password}
                             secureTextEntry={isShown}
-                            onChangeText = {(password) => setPassword(password)}/>
+                            onChangeText={(password) => setPassword(password)} />
                         <TouchableOpacity style={{ position: 'absolute', right: 10, top: 10 }} onPress={togglePassword}>
                             <FontAwesome name="eye-slash" size={24} color="#999999" />
                         </TouchableOpacity>
                     </View>
-                    { !ispassword ? 
+                    {!ispassword ?
                         (
-                            <Text style={[styles.t15, styles.textCenter, styles.marginTop, { fontWeight: '300', color: '#ff0000'} ]}>
+                            <Text style={[styles.t15, styles.textCenter, styles.marginTop, { fontWeight: '300', color: '#ff0000' }]}>
                                 Required Password!
-                            </Text>  
+                            </Text>
                         ) : null
                     }
 
@@ -129,11 +142,11 @@ function SignUpScreen({ navigation }) {
                                 Privacy Statement.</Text>
                         </TouchableOpacity>
 
-                        {accept ? (!isAccept ? 
+                        {accept ? (!isAccept ?
                             (
-                                <Text style={[styles.t15, styles.textCenter, styles.marginTop, { fontWeight: '300', color: '#ff0000'} ]}>
+                                <Text style={[styles.t15, styles.textCenter, styles.marginTop, { fontWeight: '300', color: '#ff0000' }]}>
                                     Please, accept Terms and Conditions and Privacy statement
-                                </Text>  
+                                </Text>
                             ) : null) : null
                         }
                     </View>

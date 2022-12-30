@@ -5,7 +5,7 @@ import Header from '../../components/Header/index';
 function Step11Screen({ navigation }) {
     return (
             <View style={{ flex: 1 }}>
-                <Header pressLogo={() => navigation.navigate('home')} />
+                <Header pressLogo={() => navigation.navigate('home')} stepStr={'11'}/>
                 <Text style={{width: '90%', height: 10, backgroundColor: '#E6447D'}} />
                 <View style={styles.step5Content}>
                     <Text style={styles.t20bold}>Get started with a Coach!</Text>

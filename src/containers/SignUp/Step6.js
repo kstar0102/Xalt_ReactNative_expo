@@ -14,72 +14,80 @@ const initialState = {
 
 function Step6Screen({ navigation }) {
     const [state, setState] = React.useState(initialState);
+    const [isFirst, setIsFirst] = useState(false);
 
     return (
-            <View style={{ flex: 1 }}>
-                <Header pressLogo={() => navigation.navigate('home')} />
-                <Text style={{width: '60%', height: 10, backgroundColor: '#E6447D'}} />
-                <View style={styles.headercontain}>
-                    <Text style={styles.t20bold}>For your ideal coach, what gender do</Text>
-                    <Text style={styles.t20bold}>you prefer?</Text>
-                </View>
-
-                <View style={styles.checkboxWrapper}>
-                    <CheckBox
-                        value={state.male}
-                        color="#E81E63"
-                        onValueChange={value =>
-                            setState({
-                                ...state, male: value,
-                            })
-                        }
-                    />
-                    <Text style={styles.t18}>Male</Text>
-                </View>
-                <View style={styles.checkboxWrapper}>
-                    <CheckBox
-                        value={state.female}
-                        color="#E81E63"
-                        onValueChange={value =>
-                            setState({
-                                ...state, female: value,
-                            })
-                        }
-                    />
-                    <Text style={styles.t18}>Female</Text>
-                </View>
-                <View style={styles.checkboxWrapper}>
-                    <CheckBox
-                        value={state.other}
-                        color="#E81E63"
-                        onValueChange={value =>
-                            setState({
-                                ...state, other: value,
-                            })
-                        }
-                    />
-                    <Text style={styles.t18}>Other</Text>
-                </View>
-                <View style={styles.checkboxWrapper}>
-                    <CheckBox
-                        value={state.no_preference}
-                        color="#E81E63"
-                        onValueChange={value =>
-                            setState({
-                                ...state, no_preference: value,
-                            })
-                        }
-                    />
-                    <Text style={styles.t18}>No Preference</Text>
-                </View>
-
-                <Footer navigationNext={() =>
-                                navigation.navigate('step7')} 
-                                navgationPrevious={() =>
-                                navigation.navigate('step5')}/>
-
-
+        <View style={{ flex: 1 }}>
+            <Header pressLogo={() => navigation.navigate('home')} stepStr={'6'}/>
+            <Text style={{ width: '60%', height: 10, backgroundColor: '#E6447D' }} />
+            <View style={styles.headercontain}>
+                <Text style={styles.t20bold}>For your ideal coach, what gender do</Text>
+                <Text style={styles.t20bold}>you prefer?</Text>
             </View>
+
+            <View style={styles.checkboxWrapper}>
+                <CheckBox
+                    value={state.male}
+                    color="#E81E63"
+                    onValueChange={value =>
+                        setState({
+                            ...state, male: value,
+                        })
+                    }
+                />
+                <Text style={styles.t18}>Male</Text>
+            </View>
+            <View style={styles.checkboxWrapper}>
+                <CheckBox
+                    value={state.female}
+                    color="#E81E63"
+                    onValueChange={value =>
+                        setState({
+                            ...state, female: value,
+                        })
+                    }
+                />
+                <Text style={styles.t18}>Female</Text>
+            </View>
+            <View style={styles.checkboxWrapper}>
+                <CheckBox
+                    value={state.other}
+                    color="#E81E63"
+                    onValueChange={value =>
+                        setState({
+                            ...state, other: value,
+                        })
+                    }
+                />
+                <Text style={styles.t18}>Other</Text>
+            </View>
+            <View style={styles.checkboxWrapper}>
+                <CheckBox
+                    value={state.no_preference}
+                    color="#E81E63"
+                    onValueChange={value =>
+                        setState({
+                            ...state, no_preference: value,
+                        })
+                    }
+                />
+                <Text style={styles.t18}>No Preference</Text>
+            </View>
+
+            {
+                isFirst ?
+                    (<Text style={[styles.t15, styles.textCenter, styles.marginTop, { fontWeight: '300', color: '#ff0000' }]}>
+                        You must choose at least 1 option!
+                    </Text>) : null
+
+            }
+
+            <Footer navigationNext={() => { if ((!state.male && !state.female && !state.other && !state.no_preference)) { setIsFirst(true); } else { setIsFirst(false); navigation.navigate('step7'); } }}
+                navgationPrevious={() =>
+                    navigation.navigate('step5')} />
+
+
+        </View>
     );
 
 }

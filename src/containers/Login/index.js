@@ -44,7 +44,7 @@ function LoginScreen({ navigation }) {
     <ScrollView>
       <View style={{ flex: 1 }}>
         <Header pressLogo={() =>
-          navigation.navigate('home')} />
+          navigation.navigate('home')} isLogin={true}/>
         <View style={styles.loginContent}>
           <Text style={styles.t35}>Login</Text>
           <Text style={[styles.t20, { fontWeight: '300', paddingTop: 20 }]}>Stay updated on your health and fitness.</Text>
