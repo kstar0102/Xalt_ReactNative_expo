@@ -9,7 +9,11 @@
     "web": "expo start --web"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@react-native-async-storage/async-storage": "^1.17.11",
+=======
+    "@react-native-async-storage/async-storage": "~1.17.3",
+>>>>>>> 2210295d4fa20ded28a36bc8f6416818d6dab566
     "@react-native-community/datetimepicker": "6.5.2",
     "@react-native-community/slider": "4.2.4",
     "@react-navigation/material-top-tabs": "^6.5.1",
@@ -19,6 +23,8 @@
     "expo-checkbox": "^2.2.2",
     "expo-file-system": "~15.1.1",
     "expo-status-bar": "~1.4.2",
+    "formik": "^2.2.9",
+    "moment": "^2.29.4",
     "react": "18.1.0",
     "react-hook-form": "^7.41.2",
     "react-native": "0.70.5",
@@ -32,9 +38,14 @@
     "react-native-progress": "^5.0.0",
     "react-native-safe-area-context": "4.4.1",
     "react-native-screens": "~3.18.0",
+<<<<<<< HEAD
     "react-native-svg": "13.4.0",
     "react-native-svg-uri": "^1.2.3",
     "react-native-virtualized-view": "^1.0.0"
+=======
+    "react-native-virtualized-view": "^1.0.0",
+    "react-native-webview": "^11.26.0"
+>>>>>>> 2210295d4fa20ded28a36bc8f6416818d6dab566
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

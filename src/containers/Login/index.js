@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Image, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import Header from '../../components/Header/index';
 import { FontAwesome } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// import { isString } from 'util';
 // import { METHODS } from 'http';
 
 function LoginScreen({ navigation }) {
@@ -25,12 +27,20 @@ function LoginScreen({ navigation }) {
           'Access-Control-Expose-Headers': 'access-token, client, uid' 
         },
       }
-    ).then((response) => response.json())
+    ).then((response) => {
+      let header = {
+        'access-token' : response.headers.map["access-token"],
+        'client' : response.headers.map["client"],
+        'uid' : response.headers.map["uid"],
+      };
+      AsyncStorage.setItem('xalt_header', JSON.stringify(header));
+      return response.json();
+    })
     .then((responseJson) => {
-      console.log(responseJson)
       if (responseJson['success'] == false) {
         alert(responseJson['errors']); 
       } else {
+        AsyncStorage.setItem('xalt_user_id', responseJson['id']);
         navigation.navigate('main');
       }
     })

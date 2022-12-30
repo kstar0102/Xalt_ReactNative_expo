@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, StyleSheet, Image, Text, Button, TouchableOpacity, ScrollView } from 'react-native';
 import Header from '../src/components/Header/index';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function HomeScreen({ navigation }) {
+<<<<<<< HEAD
   return (
     <ScrollView>
       <View style={{ flex: 1 }}>
@@ -14,6 +16,54 @@ function HomeScreen({ navigation }) {
           <Text style={[styles.t35, styles.textCenter, { marginTop: -10 }]}>
             Health Dashboard!
           </Text>
+=======
+  AsyncStorage.getItem('xalt_header').then(
+    (value) =>
+      {
+        if(value != "") {
+          navigation.navigate('main')
+        }
+      })
+    return (
+      <ScrollView>
+        <View style={{ flex: 1 }}>
+          <Header />
+          <View>
+            <Text style={[styles.t35, styles.textCenter, {paddingTop: 30}]}>
+              Welcome to Your
+            </Text>
+            <Text style={[styles.t35, styles.textCenter, {marginTop: -10}]}>
+              Health Dashboard!
+            </Text>
+          </View>
+          <View>
+            <Text style={[styles.t25, styles.textCenter, {paddingTop: 20, fontWeight: '400'}]}>
+              xAlt puts a world of health & fitness into your hands.
+            </Text>
+            <Text style={[styles.t25, styles.textCenter, {fontWeight: '400'}]}>
+              Get life-long results using proven principles.
+            </Text>
+          </View>
+          <View style={styles.signContainner}>
+            <TouchableOpacity style={styles.signButton} onPress={() =>
+                navigation.navigate('login')}>
+              <Text style={[styles.t15, styles.textCenter, styles.colorWhite, {fontWeight: '700'}]}>
+                SIGN IN
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.signButton, styles.bgPink]} onPress = {() => navigation.navigate('signup')}>
+              <Text style={[styles.t15, styles.textCenter, styles.colorPink, {fontWeight: '700'}]}>
+                SIGN UP
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.mainImageContent}>
+            <Image
+                style={styles.mainImage}
+                source={require('../assets/Daco_3704977.png')}
+            />
+          </View>
+>>>>>>> 2210295d4fa20ded28a36bc8f6416818d6dab566
         </View>
         <View>
           <Text style={[styles.t25, styles.textCenter, { paddingTop: 20, fontWeight: '400' }]}>

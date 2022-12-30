@@ -2,29 +2,9 @@ import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
    
 class List extends Component {
-   state = {
-      names: [
-         {
-            id: 0,
-            title: 'Ben',
-            username:'Mark Denis',
-            users: 2
-         },
-         {
-            id: 1,
-            title: 'Susan',
-            username:'John Doe',
-            users: 3
-         },
-         {
-            id: 2,
-            title: 'Diet',
-            username:'testUser',
-            users: 1
-         },
-      ]
+   constructor(props) {
+      super(props);
    }
-   
    alertItemName = (item) => {
       alert(item.title)
    }
@@ -32,17 +12,17 @@ class List extends Component {
       return (
          <View style = {styles.container}>
             {
-               this.state.names.map((item, index) => (
+               this.props.challenges.map((item, index) => (
                   <TouchableOpacity
                      key = {item.id}
-                     onPress = {this.props.navigationFunc}>
+                     onPress = {() => this.props.navigationFunc(item)}>
                     <View style = {{flexDirection:'row'}}>
                         <View style = {{alignSelf:'flex-start', width:'60%'}}>
-                            <Text style = {styles.text}>{item.title}</Text>
-                            <Text style = {styles.text}>{item.username}</Text>
+                            <Text style = {styles.text}>{item.name}</Text>
+                            <Text style = {styles.text}>{item.user.name}</Text>
                         </View>                        
                         <Text style = {styles.text}>PARTICIPANTS: {' '}</Text>
-                        <Text style = {styles.text}>{item.users}</Text>
+                        <Text style = {styles.text}>{item.user_member_challenges.length}</Text>
                         
                     </View>
                      
