@@ -1,8 +1,16 @@
 import React from 'react';
 import { View, StyleSheet, Image, Text, Button, TouchableOpacity, ScrollView } from 'react-native';
 import Header from '../src/components/Header/index';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function HomeScreen({ navigation }) {
+  AsyncStorage.getItem('xalt_header').then(
+    (value) =>
+      {
+        if(value != "") {
+          navigation.navigate('main')
+        }
+      })
     return (
       <ScrollView>
         <View style={{ flex: 1 }}>

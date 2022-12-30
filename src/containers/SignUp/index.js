@@ -74,7 +74,7 @@ function SignUpScreen({ navigation }) {
                         (
                             <Text style={[styles.t15, styles.textCenter, styles.marginTop, { fontWeight: '300', color: '#ff0000'} ]}>
                                 Please, enter your name!
-                            </Text>  
+                            </Text>
                         ) : null
                     }
 

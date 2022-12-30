@@ -1,4 +1,5 @@
 import React from 'react';
+import { LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './src';
@@ -18,7 +19,7 @@ import Step11 from './src/containers/SignUp/Step11';
 import Step12 from './src/containers/SignUp/Step12';
 import Step13 from './src/containers/SignUp/Step13';
 import ListDetail from './src/containers/Main/listDetail';
-
+LogBox.ignoreAllLogs();
 const Stack = createNativeStackNavigator();
 
 function App() {
